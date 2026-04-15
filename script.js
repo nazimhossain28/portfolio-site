@@ -88,4 +88,5 @@ function initActiveNavTracking() {
 document.addEventListener('DOMContentLoaded', () => {
   initScrollAnimations();
   initActiveNavTracking();
+  document.getElementById('footerYear').textContent = new Date().getFullYear();
 });

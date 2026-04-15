@@ -192,7 +192,16 @@ body {
   font-size: 1.25rem;
   color: var(--primary-light);
   font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.hero-subheadline {
+  font-size: 0.95rem;
+  color: var(--text-light);
+  line-height: 1.6;
   margin-bottom: 20px;
+  max-width: 500px;
+  text-align: justify;
 }
 
 .hero-bio {

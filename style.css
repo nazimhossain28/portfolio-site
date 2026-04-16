@@ -410,11 +410,13 @@ body {
   height: 38px;
   color: var(--primary-light);
   transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.interest-icon svg {
-  width: 100%;
-  height: 100%;
+.interest-icon i {
+  font-size: 1.6rem;
 }
 
 .interest-card span {

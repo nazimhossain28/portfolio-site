@@ -104,36 +104,45 @@ function initTimelineProgress() {
   const items = timeline.querySelectorAll('.timeline-item');
   if (!items.length) return;
 
-  window.addEventListener('scroll', () => {
-    const triggerPoint = window.innerHeight * 0.45;
-    let lastActiveIndex = -1;
+  function updateTimeline() {
+    var timelineRect = timeline.getBoundingClientRect();
+    var timelineTop = timelineRect.top + window.scrollY;
+    var timelineHeight = timeline.offsetHeight;
 
-    items.forEach((item, index) => {
-      const rect = item.getBoundingClientRect();
-      if (rect.top < triggerPoint) {
-        lastActiveIndex = index;
-      }
-    });
+    // How far the user has scrolled through the timeline section
+    var scrollMiddle = window.scrollY + window.innerHeight * 0.5;
+    var progress = (scrollMiddle - timelineTop) / timelineHeight;
+    progress = Math.max(0, Math.min(1, progress));
 
-    items.forEach((item, index) => {
+    // Map progress to items
+    var totalItems = items.length;
+    var activeIndex = Math.floor(progress * totalItems);
+    if (progress >= 1) activeIndex = totalItems - 1;
+    if (progress <= 0) activeIndex = -1;
+
+    items.forEach(function(item, index) {
       item.classList.remove('active', 'passed');
-      if (index < lastActiveIndex) {
-        item.classList.add('passed');
-      } else if (index === lastActiveIndex) {
-        item.classList.add('active');
+      if (activeIndex >= 0) {
+        if (index < activeIndex) {
+          item.classList.add('passed');
+        } else if (index === activeIndex) {
+          item.classList.add('active');
+        }
       }
     });
 
-    // Update progress bar height
-    if (lastActiveIndex >= 0) {
-      const activeItem = items[lastActiveIndex];
-      const timelineRect = timeline.getBoundingClientRect();
-      const markerTop = activeItem.offsetTop + 6 + 7; // top offset + half marker
-      progressBar.style.height = markerTop + 'px';
+    // Update progress bar height to reach the active marker
+    if (activeIndex >= 0) {
+      var activeItem = items[activeIndex];
+      var markerCenter = activeItem.offsetTop + 13;
+      progressBar.style.height = markerCenter + 'px';
     } else {
       progressBar.style.height = '0px';
     }
-  });
+  }
+
+  window.addEventListener('scroll', updateTimeline);
+  updateTimeline();
 }
 
 // ============================================

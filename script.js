@@ -96,11 +96,53 @@ function initBackToTop() {
 }
 
 // ============================================
+// Timeline scroll progress
+// ============================================
+function initTimelineProgress() {
+  const timeline = document.getElementById('educationTimeline');
+  const progressBar = document.getElementById('timelineProgress');
+  const items = timeline.querySelectorAll('.timeline-item');
+  if (!items.length) return;
+
+  window.addEventListener('scroll', () => {
+    const triggerPoint = window.innerHeight * 0.45;
+    let lastActiveIndex = -1;
+
+    items.forEach((item, index) => {
+      const rect = item.getBoundingClientRect();
+      if (rect.top < triggerPoint) {
+        lastActiveIndex = index;
+      }
+    });
+
+    items.forEach((item, index) => {
+      item.classList.remove('active', 'passed');
+      if (index < lastActiveIndex) {
+        item.classList.add('passed');
+      } else if (index === lastActiveIndex) {
+        item.classList.add('active');
+      }
+    });
+
+    // Update progress bar height
+    if (lastActiveIndex >= 0) {
+      const activeItem = items[lastActiveIndex];
+      const timelineRect = timeline.getBoundingClientRect();
+      const markerTop = activeItem.offsetTop + 6 + 7; // top offset + half marker
+      progressBar.style.height = markerTop + 'px';
+    } else {
+      progressBar.style.height = '0px';
+    }
+  });
+}
+
+// ============================================
 // Init
 // ============================================
 document.addEventListener('DOMContentLoaded', () => {
   initScrollAnimations();
   initActiveNavTracking();
   initBackToTop();
+  initTimelineProgress();
   document.getElementById('footerYear').textContent = new Date().getFullYear();
 });

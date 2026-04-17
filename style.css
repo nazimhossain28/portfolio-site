@@ -402,13 +402,11 @@ body {
 
 .interest-card:hover .interest-icon {
   transform: translateY(-3px);
-  color: var(--primary);
 }
 
 .interest-icon {
   width: 48px;
   height: 48px;
-  color: var(--primary-light);
   transition: var(--transition);
   display: flex;
   align-items: center;
@@ -924,6 +922,18 @@ body {
 .brand-spss { color: #CC0000; }
 .brand-powerbi { color: #D4A017; }
 .brand-python { color: #3776AB; }
+
+/* Key Interests */
+.color-fiber { color: #8B5E3C; }
+.color-smart { color: #1E88E5; }
+.color-circular { color: #43A047; }
+.color-biomedical { color: #E53935; }
+.color-composites { color: #F57C00; }
+.color-biopolymers { color: #8E24AA; }
+.color-eco { color: #2E7D32; }
+.color-geo { color: #0277BD; }
+.color-nano { color: #00ACC1; }
+.color-process { color: #546E7A; }
 
 /* Contact */
 .brand-gmail { color: #EA4335; }

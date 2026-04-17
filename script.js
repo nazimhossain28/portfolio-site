@@ -133,9 +133,14 @@ function initTimelineProgress() {
 
     // Update progress bar height to reach the active marker
     if (activeIndex >= 0) {
-      var activeItem = items[activeIndex];
-      var markerCenter = activeItem.offsetTop + 13;
-      progressBar.style.height = markerCenter + 'px';
+      if (activeIndex === totalItems - 1) {
+        // Last item: cover the full timeline line
+        progressBar.style.height = timeline.offsetHeight + 'px';
+      } else {
+        var activeItem = items[activeIndex];
+        var markerCenter = activeItem.offsetTop + 13;
+        progressBar.style.height = markerCenter + 'px';
+      }
     } else {
       progressBar.style.height = '0px';
     }
